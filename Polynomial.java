@@ -4,21 +4,28 @@ public class Polynomial
 	public Polynomial()
 	{
 		anArray = new double[1];
-		anArray[0] = 0;
+		anArray[0] = 0.0;
 	}
 	public Polynomial(double[] inputArray)
 	{
-		int size = inputArray.length;
-		double[] anArray = new double[size];
-		System.arraycopy(inputArray, 0, anArray, 0, size);
+		// int size = inputArray.length;
+		// double[] anArray = new double[size];
+		// System.arraycopy(inputArray, 0, anArray, 0, size);
+		anArray = inputArray.clone();
 	}
 	public Polynomial add(Polynomial argPoly)
 	{
-		Polynomial newpoly = new Polynomial(argPoly.anArray);
+		int max = Math.max(anArray.length, argPoly.anArray.length);
+		double[] res = new double[max];
+		
 		for (int i = 0; i < anArray.length; i++) {
-			newpoly[i] = anArray[i] + argPoly.anArray[i];
+			res[i] += anArray[i];
 		}
-		return newpoly;
+		
+		for (int i = 0; i < argPoly.anArray.length; i++) {
+			res[i] += argPoly.anArray[i];
+		}
+		return new Polynomial(res);
 	}
 	public double evaluate(double argVal)
 	{
